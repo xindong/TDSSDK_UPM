@@ -1,7 +1,5 @@
 # TDSSDK
 
-# TapSDK
-
 ### 前提条件
 
 * 安装Unity **Unity 2018.3**或更高版本
