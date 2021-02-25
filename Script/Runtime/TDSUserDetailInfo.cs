@@ -38,6 +38,10 @@ namespace TapSDK
             this.userCenterEntry = new TDSUserCenterEntry(TDSCommon.SafeDictionary.GetValue<object>(dic,"userCenterEntry") as Dictionary<string,object>);
         }
 
+        public string ToJSON()
+        {
+            return TDSCommon.Json.Serialize(this);
+        }
 
     }
 
@@ -49,6 +53,12 @@ namespace TapSDK
         {
             this.isMomentEnabled = TDSCommon.SafeDictionary.GetValue<bool>(dic,"isMomentEnabled");
         }
+
+        public string ToJSON()
+        {
+            return TDSCommon.Json.Serialize(this);
+        }
+
     }
 
 }

@@ -21,7 +21,7 @@ namespace TapSDK
 
         public TDSUserInfo()
         {
-
+            
         }
 
         public TDSUserInfo(string json)
@@ -33,6 +33,11 @@ namespace TapSDK
             this.taptapUserId = TDSCommon.SafeDictionary.GetValue<string>(dic,"taptapUserId");
             this.isGuest = TDSCommon.SafeDictionary.GetValue<bool>(dic,"isGuest");
             this.gender = TDSCommon.SafeDictionary.GetValue<long>(dic,"gender");
+        }
+
+        public string ToJSON()
+        {
+            return TDSCommon.Json.Serialize(this);
         }
 
     }

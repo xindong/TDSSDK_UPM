@@ -7,7 +7,7 @@ using TDSCommon;
 namespace TapSDK
 {
     public class TDSSDKImpl : ITDS
-    {   
+    {
         private TDSSDKImpl()
         {
             EngineBridge.GetInstance().Register(TDSConstants.TDS_CLZ, TDSConstants.TDS_IMPL);
@@ -35,8 +35,8 @@ namespace TapSDK
             Command command = new Command.Builder()
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("init")
-                .Args("clientID",clientID)
-                .Args("regionType",regionType)
+                .Args("clientID", clientID)
+                .Args("regionType", regionType)
                 .CommandBuilder();
 
             EngineBridge.GetInstance().CallHandler(command);
@@ -49,20 +49,21 @@ namespace TapSDK
                 .Method("registerTDSSDKLoginResultCallback")
                 .Callback(true)
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command,(result)=>
+
+            EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
-                 if(!CheckBridgeResult(result))
+                 if (!CheckBridgeResult(result))
                  {
                      callback.OnLoginError("Bridge execute RegisterTDSSDKLoginResultCallback Error!");
                      return;
                  }
                  TDSLoginWrapper loginWrapper = new TDSLoginWrapper(result.content);
-                 if(loginWrapper.loginCallbackCode == 0)
+                 if (loginWrapper.loginCallbackCode == 0)
                  {
                      callback.OnLoginSuccess(new TDSToken(loginWrapper.wrapper));
                      return;
                  }
-                 if(loginWrapper.loginCallbackCode == 1)
+                 if (loginWrapper.loginCallbackCode == 1)
                  {
                      callback.OnLoginCancel();
                      return;
@@ -78,19 +79,19 @@ namespace TapSDK
                 .Method("registerTDSSDKUserStatusCallback")
                 .Callback(true)
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command,(result)=>
+            EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
-                 if(!CheckBridgeResult(result))
+                 if (!CheckBridgeResult(result))
                  {
                      return;
                  }
-                TDSUserStatusWrapper wrapper = new TDSUserStatusWrapper(result.content);
-                if(wrapper.userStatusCallbackCode == 1)
-                {
-                    callback.OnLogout(wrapper.wrapper);
-                    return;
-                }
-                callback.OnBind(wrapper.wrapper);
+                 TDSUserStatusWrapper wrapper = new TDSUserStatusWrapper(result.content);
+                 if (wrapper.userStatusCallbackCode == 1)
+                 {
+                     callback.OnLogout(wrapper.wrapper);
+                     return;
+                 }
+                 callback.OnBind(wrapper.wrapper);
              });
         }
 
@@ -99,9 +100,9 @@ namespace TapSDK
             Command command = new Command.Builder()
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("loginbyTapTap")
-                .Args("permissions",permission)
+                .Args("permissions", permission)
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command);
+            EngineBridge.GetInstance().CallHandler(command);
         }
 
         public void LoginbyGuest()
@@ -110,7 +111,7 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("loginbyGuest")
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command);
+            EngineBridge.GetInstance().CallHandler(command);
         }
 
         public void LoginbyApple()
@@ -119,7 +120,7 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("loginbyApple")
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command);
+            EngineBridge.GetInstance().CallHandler(command);
         }
 
         public void BindWithTapTap(string[] permissions)
@@ -128,7 +129,7 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("bindWithTapTap")
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command);
+            EngineBridge.GetInstance().CallHandler(command);
         }
 
         public void GetUserInfo(Action<TDSUserInfo> callback)
@@ -138,13 +139,13 @@ namespace TapSDK
                 .Method("getUserInfo")
                 .Callback(true)
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command,(result)=>
+            EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
-                if(!CheckBridgeResult(result))
-                {
-                    return;
-                }
-                callback(new TDSUserInfo(result.content));
+                 if (!CheckBridgeResult(result))
+                 {
+                     return;
+                 }
+                 callback(new TDSUserInfo(result.content));
              });
         }
 
@@ -155,13 +156,13 @@ namespace TapSDK
                 .Method("getUserDetailInfo")
                 .Callback(true)
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command,(result)=>
+            EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
-                if(!CheckBridgeResult(result))
-                {
-                    return;
-                }
-                callback(new TDSUserDetailInfo(result.content));
+                 if (!CheckBridgeResult(result))
+                 {
+                     return;
+                 }
+                 callback(new TDSUserDetailInfo(result.content));
              });
         }
 
@@ -172,13 +173,13 @@ namespace TapSDK
                 .Method("getCurrentToken")
                 .Callback(true)
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command,(result)=>
+            EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
-                 if(!CheckBridgeResult(result))
-                {
-                    return;
-                }
-                callback(new TDSToken(result.content));
+                 if (!CheckBridgeResult(result))
+                 {
+                     return;
+                 }
+                 callback(new TDSToken(result.content));
              });
         }
 
@@ -188,17 +189,17 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("logout")
                 .CommandBuilder();
-             EngineBridge.GetInstance().CallHandler(command);
+            EngineBridge.GetInstance().CallHandler(command);
         }
 
         public bool CheckBridgeResult(Result result)
         {
-            if(result == null)
+            if (result == null)
             {
                 return false;
             }
 
-            if(result.code != 0)
+            if (result.code != 0)
             {
                 return false;
             }

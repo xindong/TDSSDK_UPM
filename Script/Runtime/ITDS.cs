@@ -48,11 +48,11 @@ namespace TapSDK
 
     public class TDSConstants
     {
-        public static string TDS_SERVICE = "";
+        public static string TDS_SERVICE = "TDSSDKService";
 
-        public static string TDS_CLZ = "";
+        public static string TDS_CLZ = "com.tapsdk.core.wrapper.TDSSDKService";
 
-        public static string TDS_IMPL = "";
+        public static string TDS_IMPL = "com.tapsdk.core.wrapper.TDSSDKServiceImpl";
     }   
 
 }

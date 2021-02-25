@@ -14,7 +14,7 @@ namespace TapSDK
 
         public static void RegisterTDSSDKLoginResultCallback(TDSLoginResultCallback callback)
         {
-            TDSSDKImpl.GetInstance().Init(callback);
+            TDSSDKImpl.GetInstance().RegisterTDSSDKLoginResultCallback(callback);
         }
 
         public static void RegisterTDSSDKUserStatusCallback(TDSUserStateChagneCallback callback)
