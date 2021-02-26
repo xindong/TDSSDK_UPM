@@ -54,7 +54,7 @@ namespace TapSDK
              {
                  if (!CheckBridgeResult(result))
                  {
-                     callback.OnLoginError("Bridge execute RegisterTDSSDKLoginResultCallback Error!");
+                     callback.OnLoginError(new TDSSDKError(-1,"Bridge execute RegisterTDSSDKLoginResultCallback Error!"));
                      return;
                  }
                  TDSLoginWrapper loginWrapper = new TDSLoginWrapper(result.content);
@@ -68,7 +68,9 @@ namespace TapSDK
                      callback.OnLoginCancel();
                      return;
                  }
-                 callback.OnLoginError(loginWrapper.wrapper);
+                 TDSSDKError error = new TDSSDKError(loginWrapper.wrapper);
+
+                 callback.OnLoginError(error);
              });
         }
 
@@ -86,12 +88,13 @@ namespace TapSDK
                      return;
                  }
                  TDSUserStatusWrapper wrapper = new TDSUserStatusWrapper(result.content);
+                 TDSSDKError error = new TDSSDKError(wrapper.wrapper);
                  if (wrapper.userStatusCallbackCode == 1)
                  {
-                     callback.OnLogout(wrapper.wrapper);
+                     callback.OnLogout(error);
                      return;
                  }
-                 callback.OnBind(wrapper.wrapper);
+                 callback.OnBind(error);
              });
         }
 
@@ -100,7 +103,7 @@ namespace TapSDK
             Command command = new Command.Builder()
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("loginbyTapTap")
-                .Args("permissions", permission)
+                .Args("loginbyTapTap", permission)
                 .CommandBuilder();
             EngineBridge.GetInstance().CallHandler(command);
         }
@@ -128,11 +131,12 @@ namespace TapSDK
             Command command = new Command.Builder()
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("bindWithTapTap")
+                .Args("bindWithTapTap", permissions)
                 .CommandBuilder();
             EngineBridge.GetInstance().CallHandler(command);
         }
 
-        public void GetUserInfo(Action<TDSUserInfo> callback)
+        public void GetUserInfo(Action<TDSUserInfo> callback, Action<TDSSDKError> errorCallback)
         {
             Command command = new Command.Builder()
                 .Service(TDSConstants.TDS_SERVICE)
@@ -140,30 +144,49 @@ namespace TapSDK
                 .Callback(true)
                 .CommandBuilder();
             EngineBridge.GetInstance().CallHandler(command, (result) =>
-             {
-                 if (!CheckBridgeResult(result))
-                 {
-                     return;
-                 }
-                 callback(new TDSUserInfo(result.content));
-             });
+            {
+                if (!CheckBridgeResult(result))
+                {
+                    errorCallback(new TDSSDKError(-1,"Bridge execute GetUserInfo Error!"));
+                    return;
+                }
+
+                TDSUserInfoWrapper wrapper = new TDSUserInfoWrapper(result.content);
+                
+                if(wrapper.getUserInfoCode == 0)    
+                {
+                    callback(new TDSUserInfo(wrapper.wrapper));
+                    return;
+                }
+                errorCallback(new TDSSDKError(wrapper.wrapper));
+            });
         }
 
-        public void GetUserDetailInfo(Action<TDSUserDetailInfo> callback)
+        public void GetUserDetailInfo(Action<TDSUserDetailInfo> callback, Action<TDSSDKError> errorCallback)
         {
             Command command = new Command.Builder()
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("getUserDetailInfo")
                 .Callback(true)
                 .CommandBuilder();
+
             EngineBridge.GetInstance().CallHandler(command, (result) =>
-             {
-                 if (!CheckBridgeResult(result))
-                 {
-                     return;
-                 }
-                 callback(new TDSUserDetailInfo(result.content));
-             });
+            {
+                Debug.Log("result:" + result.toJSON());
+                if (!CheckBridgeResult(result))
+                {
+                    errorCallback(new TDSSDKError(-1,"Bridge execute GetUserInfo Error!"));
+                    return;
+                }
+                TDSUserDetailInfoWrapper detailInfoWrapper = new TDSUserDetailInfoWrapper(result.content);
+
+                if(detailInfoWrapper.getUserDetailInfoCode == 0)
+                {
+                    callback(new TDSUserDetailInfo(detailInfoWrapper.wrapper));
+                    return;
+                }
+                errorCallback(new TDSSDKError(detailInfoWrapper.wrapper));
+            });
         }
 
         public void GetCurrentToken(Action<TDSToken> callback)
@@ -175,10 +198,10 @@ namespace TapSDK
                 .CommandBuilder();
             EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
-                 if (!CheckBridgeResult(result))
-                 {
-                     return;
-                 }
+                if (!CheckBridgeResult(result))
+                {
+                    return;
+                }
                  callback(new TDSToken(result.content));
              });
         }
@@ -206,6 +229,7 @@ namespace TapSDK
 
             return result.content != null && result.content.Length != 0;
         }
+
     }
 
 }

@@ -7,9 +7,9 @@ namespace TapSDK
 {
     public class TDS
     {
-        public static void Init(string clientID,bool regionType)
+        public static void Init(string clientID, bool regionType)
         {
-            TDSSDKImpl.GetInstance().Init(clientID,regionType);
+            TDSSDKImpl.GetInstance().Init(clientID, regionType);
         }
 
         public static void RegisterTDSSDKLoginResultCallback(TDSLoginResultCallback callback)
@@ -36,20 +36,20 @@ namespace TapSDK
         {
             TDSSDKImpl.GetInstance().LoginbyApple();
         }
-    
+
         public static void BindWithTapTap(string[] permissions)
         {
             TDSSDKImpl.GetInstance().BindWithTapTap(permissions);
         }
 
-        public static void GetUserInfo(Action<TDSUserInfo> callback)
+        public static void GetUserInfo(Action<TDSUserInfo> callback, Action<TDSSDKError> errorCallback)
         {
-            TDSSDKImpl.GetInstance().GetUserInfo(callback);
+            TDSSDKImpl.GetInstance().GetUserInfo(callback, errorCallback);
         }
 
-        public static void GetUserDetailInfo(Action<TDSUserDetailInfo> callback)
+        public static void GetUserDetailInfo(Action<TDSUserDetailInfo> callback, Action<TDSSDKError> errorCallback)
         {
-            TDSSDKImpl.GetInstance().GetUserDetailInfo(callback);
+            TDSSDKImpl.GetInstance().GetUserDetailInfo(callback, errorCallback);
         }
 
         public static void GetCurrentToken(Action<TDSToken> callback)
@@ -58,7 +58,7 @@ namespace TapSDK
         }
 
         public static void Logout()
-        {   
+        {
             TDSSDKImpl.GetInstance().Logout();
         }
 

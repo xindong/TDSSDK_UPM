@@ -35,4 +35,32 @@ namespace TapSDK
 
     }
 
+    public class TDSUserInfoWrapper
+    {
+        public string wrapper;
+
+        public int getUserInfoCode;
+
+        public TDSUserInfoWrapper(string json)
+        {
+            Dictionary<string,object> dic = TDSCommon.Json.Deserialize(json) as Dictionary<string,object>;
+            this.wrapper = TDSCommon.SafeDictionary.GetValue<string>(dic,"wrapper");
+            this.getUserInfoCode = TDSCommon.SafeDictionary.GetValue<int>(dic,"getUserInfoCode");
+        }
+    }
+
+    public class TDSUserDetailInfoWrapper
+    {
+        public string wrapper;
+
+        public int getUserDetailInfoCode;
+
+        public TDSUserDetailInfoWrapper(string json)
+        {
+            Dictionary<string,object> dic = TDSCommon.Json.Deserialize(json) as Dictionary<string,object>;
+            this.wrapper = TDSCommon.SafeDictionary.GetValue<string>(dic,"wrapper");
+            this.getUserDetailInfoCode = TDSCommon.SafeDictionary.GetValue<int>(dic,"getUserDetailInfoCode");
+        }
+    }
+
 }

@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using TDSEditor;
 #if UNITY_IOS
 using UnityEditor.iOS.Xcode;
 using UnityEditor.iOS.Xcode.Extensions;
 #endif
 using UnityEngine;
 
-namespace TDSSDK.Editor
+namespace TDSEditor
 {
-     public class TDSIOSPostBuildProcessor : MonoBehaviour
+     public class TDSSDKProcessor
     {
 #if UNITY_IOS
         // 添加标签，unity导出工程后自动执行该函数
-        [PostProcessBuild(1)]
+        [PostProcessBuildAttribute(99)]
         /* 
             2020-11-20 Jiang Jiahao
             该脚本中参数为DEMO参数，项目组根据实际参数修改
@@ -58,6 +57,11 @@ namespace TDSSDK.Editor
                 string key_associatedDomains = "com.apple.developer.associated-domains";
                 string key_signinWithApple = "com.apple.developer.applesignin";
 
+                if(!File.Exists(resourcePath + "/TDS-Info.plist")){
+                    Debug.Log("TDSSDK change Script compile Failed!");
+                    return;
+                }
+                
                 string isNeedAppleSignIn = GetValueFromPlist(resourcePath + "/TDS-Info.plist","apple-Sign-In");
                 string domain = GetValueFromPlist(resourcePath + "/TDS-Info.plist","game-domain");
                 if(isNeedAppleSignIn!=null && isNeedAppleSignIn.Equals("true"))
@@ -80,7 +84,7 @@ namespace TDSSDK.Editor
                 // rewrite to file  
                 File.WriteAllText(projPath, proj.WriteToString());
 
-                Debug.Log("TDSSDK Pro change Script compile Finish!");
+                Debug.Log("TDSSDK change Script compile Finish!");
 
                 return;
             }

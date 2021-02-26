@@ -21,9 +21,9 @@ namespace TapSDK
     
         void BindWithTapTap(string[] permissions);
 
-        void GetUserInfo(Action<TDSUserInfo> callback);
+        void GetUserInfo(Action<TDSUserInfo> callback,Action<TDSSDKError> errorCallback);
 
-        void GetUserDetailInfo(Action<TDSUserDetailInfo> callback);
+        void GetUserDetailInfo(Action<TDSUserDetailInfo> callback,Action<TDSSDKError> errorCallback);
 
         void GetCurrentToken(Action<TDSToken> callback);
 
@@ -36,14 +36,14 @@ namespace TapSDK
 
         void OnLoginCancel();
 
-        void OnLoginError(string error);
+        void OnLoginError(TDSSDKError error);
     }
 
     public interface TDSUserStateChagneCallback
     {
-        void OnLogout(string error);
+        void OnLogout(TDSSDKError error);
 
-        void OnBind(string error);
+        void OnBind(TDSSDKError error);
     }
 
     public class TDSConstants

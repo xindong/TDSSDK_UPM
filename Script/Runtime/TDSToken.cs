@@ -23,16 +23,16 @@ namespace TapSDK
         {
             Dictionary<string,object> dic = TDSCommon.Json.Deserialize(json) as Dictionary<string,object>;
             this.kid = TDSCommon.SafeDictionary.GetValue<string>(dic,"kid");
-            this.accessToken = TDSCommon.SafeDictionary.GetValue<string>(dic,"accessToken");
-            this.macAlgorithm = TDSCommon.SafeDictionary.GetValue<string>(dic,"macAlgorithm");
-            this.tokenType = TDSCommon.SafeDictionary.GetValue<string>(dic,"tokenType");
-            this.macKey = TDSCommon.SafeDictionary.GetValue<string>(dic,"macKey");
-            this.expireIn = TDSCommon.SafeDictionary.GetValue<long>(dic,"expireIn");
+            this.accessToken = TDSCommon.SafeDictionary.GetValue<string>(dic,"access_token");
+            this.macAlgorithm = TDSCommon.SafeDictionary.GetValue<string>(dic,"mac_algorithm");
+            this.tokenType = TDSCommon.SafeDictionary.GetValue<string>(dic,"token_type");
+            this.macKey = TDSCommon.SafeDictionary.GetValue<string>(dic,"mac_key");
+            this.expireIn = TDSCommon.SafeDictionary.GetValue<long>(dic,"expire_in");
         }
 
         public string ToJSON()
         {
-            return TDSCommon.Json.Serialize(this);
+            return JsonUtility.ToJson(this);
         }
 
     }

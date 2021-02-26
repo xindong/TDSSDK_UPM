@@ -2,10 +2,10 @@
     "name": "com.taptap.sdk",
     "displayName": "Tap SDK",
     "description": "TapTap Develop Service!",
-    "version": "0.0.1-alpha",
+    "version": "0.0.1-alpha-rnd",
     "unity": "2020.1",
     "license": "MIT",
     "dependencies": {
-        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.2-alpha"
+        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.2-alpha-rnd"
     }
 }

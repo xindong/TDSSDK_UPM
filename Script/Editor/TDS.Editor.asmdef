@@ -1,5 +1,5 @@
 {
-    "name": "TDSSDK",
+    "name": "TDS.Editor",
     "references": [
         "Unity.TDS.Editor"
     ],
