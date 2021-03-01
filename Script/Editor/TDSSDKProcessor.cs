@@ -71,7 +71,7 @@ namespace TDSEditor
                     // Sign In With Apple
                     proj.AddCapability (target, PBXCapabilityType.SignInWithApple,entitleFilePath);
                 }
-                if(domain!=null)
+                if(domain!=null && domain.Length!=0)
                 {
                     var arr_associateDomains = (tempEntitlements.root[key_associatedDomains] = new PlistElementArray()) as PlistElementArray;
                     // www.xd.com 需要替换成游戏自己官网域名
