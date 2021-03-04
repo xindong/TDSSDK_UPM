@@ -15,13 +15,7 @@ namespace TDSEditor
      public class TDSSDKProcessor
     {
 #if UNITY_IOS
-        // 添加标签，unity导出工程后自动执行该函数
         [PostProcessBuildAttribute(99)]
-        /* 
-            2020-11-20 Jiang Jiahao
-            该脚本中参数为DEMO参数，项目组根据实际参数修改
-            导出工程后核对配置或依赖是否正确，根据需要修改脚本
-        */
         public static void OnPostprocessBuild(BuildTarget BuildTarget, string path)
         {
             
@@ -32,7 +26,6 @@ namespace TDSEditor
                 UnityEditor.iOS.Xcode.PBXProject proj = new PBXProject();
                 proj.ReadFromString(File.ReadAllText(projPath));
 
-                // 2019.3以上有多个target
 #if UNITY_2019_3_OR_NEWER
                 string unityFrameworkTarget = proj.GetUnityFrameworkTargetGuid();
                 string target = proj.GetUnityMainTargetGuid();
@@ -46,10 +39,21 @@ namespace TDSEditor
                     return;
                 }
                 
-                // 添加资源文件，注意文件路径
-                var resourcePath = Path.Combine(path, "TDSResource");
+                var resourcePath = Path.Combine(path, "TDSUltraResource");
 
-                // capabilities 
+                string parentFolder = Directory.GetParent(Application.dataPath).FullName;
+
+                if (Directory.Exists(resourcePath))
+                {
+                    Directory.Delete(resourcePath,true);
+                }
+
+                Directory.CreateDirectory(resourcePath);
+
+                if(File.Exists(parentFolder + "/Assets/Plugins/IOS/Resource/TDS-Ultra-Info.plist")){
+                    File.Copy(parentFolder + "/Assets/Plugins/IOS/Resource/TDS-Ultra-Info.plist", resourcePath + "/TDS-Ultra-Info.plist");
+                }
+
                 string fileName = "Unity-iPhone" + ".entitlements";
                 string entitleFilePath = path + "/" + fileName;
                 PlistDocument tempEntitlements = new PlistDocument();
@@ -57,31 +61,28 @@ namespace TDSEditor
                 string key_associatedDomains = "com.apple.developer.associated-domains";
                 string key_signinWithApple = "com.apple.developer.applesignin";
 
-                if(!File.Exists(resourcePath + "/TDS-Info.plist")){
+                if(!File.Exists(resourcePath + "/TDS-Ultra-Info.plist")){
                     Debug.Log("TDSSDK change Script compile Failed!");
                     return;
                 }
                 
-                string isNeedAppleSignIn = GetValueFromPlist(resourcePath + "/TDS-Info.plist","apple-Sign-In");
-                string domain = GetValueFromPlist(resourcePath + "/TDS-Info.plist","game-domain");
+                string isNeedAppleSignIn = GetValueFromPlist(resourcePath + "/TDS-Ultra-Info.plist","Apple_SignIn_Enable");
+                string domain = GetValueFromPlist(resourcePath + "/TDS-Ultra-Info.plist","Game_Domain");
                 if(isNeedAppleSignIn!=null && isNeedAppleSignIn.Equals("true"))
                 {
                     var arr_signinWithApple = (tempEntitlements.root[key_signinWithApple] = new PlistElementArray()) as PlistElementArray;
                     arr_signinWithApple.values.Add(new PlistElementString("Default"));
-                    // Sign In With Apple
                     proj.AddCapability (target, PBXCapabilityType.SignInWithApple,entitleFilePath);
                 }
                 if(domain!=null && domain.Length!=0)
                 {
                     var arr_associateDomains = (tempEntitlements.root[key_associatedDomains] = new PlistElementArray()) as PlistElementArray;
-                    // www.xd.com 需要替换成游戏自己官网域名
                     arr_associateDomains.values.Add(new PlistElementString("applinks:"+domain));
                     proj.AddCapability(target, PBXCapabilityType.AssociatedDomains, entitleFilePath);
                 }
 
                 tempEntitlements.WriteToFile(entitleFilePath);
                 
-                // rewrite to file  
                 File.WriteAllText(projPath, proj.WriteToString());
 
                 Debug.Log("TDSSDK change Script compile Finish!");
