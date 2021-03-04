@@ -1,8 +1,8 @@
 {
-    "name": "com.taptap.sdk",
-    "displayName": "Tap SDK",
+    "name": "com.tds.sdk.ultra",
+    "displayName": "Tap SDK ultra",
     "description": "TapTap Develop Service!",
-    "version": "0.0.1-alpha-rnd",
+    "version": "0.0.2-alpha-rnd",
     "unity": "2020.1",
     "license": "MIT",
     "dependencies": {
