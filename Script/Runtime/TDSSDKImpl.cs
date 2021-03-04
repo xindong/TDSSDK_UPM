@@ -202,7 +202,7 @@ namespace TapSDK
                 {
                     return;
                 }
-                 callback(new TDSToken(result.content));
+                callback(new TDSToken(result.content));
              });
         }
 
