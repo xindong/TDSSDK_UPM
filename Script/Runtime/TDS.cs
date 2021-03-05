@@ -57,6 +57,12 @@ namespace TapSDK
             TDSSDKImpl.GetInstance().GetCurrentToken(callback);
         }
 
+
+        public static void OpenUserCenter()
+        {
+            TDSSDKImpl.GetInstance().OpenUserCenter();
+        }
+
         public static void Logout()
         {
             TDSSDKImpl.GetInstance().Logout();

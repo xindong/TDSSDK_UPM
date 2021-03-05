@@ -207,6 +207,14 @@ namespace TapSDK
              });
         }
 
+        public void OpenUserCenter()
+        {
+            EngineBridge.GetInstance().CallHandler(new Command.Builder()
+                .Service(TDSConstants.TDS_SERVICE)
+                .Method("openUserCenter")
+                .CommandBuilder());
+        }
+
         public void Logout()
         {
             Command command = new Command.Builder()
