@@ -50,6 +50,19 @@ namespace TDSEditor
 
                 Directory.CreateDirectory(resourcePath);
 
+                string remotePackagePath = TDSFileHelper.FilterFile(parentFolder + "/Library/PackageCache/","com.tds.sdk.ultra");
+
+                string localPacckagePath = TDSFileHelper.FilterFile(parentFolder,"TDS");
+
+                string tdsResourcePath = remotePackagePath !=null? remotePackagePath + "/Plugins/IOS/Resource" : localPacckagePath + "/Plugins/IOS/Resource";
+
+                Debug.Log("tdsResourcePath:" + tdsResourcePath);
+
+                if(Directory.Exists(tdsResourcePath)){
+                    //使用UPM接入
+                    TDSFileHelper.CopyAndReplaceDirectory(tdsResourcePath, resourcePath);
+                }
+
                 if(File.Exists(parentFolder + "/Assets/Plugins/IOS/Resource/TDS-Ultra-Info.plist")){
                     File.Copy(parentFolder + "/Assets/Plugins/IOS/Resource/TDS-Ultra-Info.plist", resourcePath + "/TDS-Ultra-Info.plist");
                 }
@@ -65,7 +78,14 @@ namespace TDSEditor
                     Debug.Log("TDSSDK change Script compile Failed!");
                     return;
                 }
-                
+
+                List<string> names = new List<string>();    
+                names.Add("TDSSDKResource.bundle");
+                foreach (var name in names)
+                {
+                    proj.AddFileToBuild(target, proj.AddFile(Path.Combine(resourcePath,name), Path.Combine(resourcePath,name), PBXSourceTree.Source));
+                }
+
                 string isNeedAppleSignIn = GetValueFromPlist(resourcePath + "/TDS-Ultra-Info.plist","Apple_SignIn_Enable");
                 string domain = GetValueFromPlist(resourcePath + "/TDS-Ultra-Info.plist","Game_Domain");
                 if(isNeedAppleSignIn!=null && isNeedAppleSignIn.Equals("true"))
