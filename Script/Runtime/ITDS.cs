@@ -21,9 +21,9 @@ namespace TapSDK
     
         void BindWithTapTap(string[] permissions);
 
-        void GetUserInfo(Action<TDSUserInfo> callback,Action<TDSSDKError> errorCallback);
+        void GetUserInfo(Action<TDSUserInfo,TDSSDKError> callback);
 
-        void GetUserDetailInfo(Action<TDSUserDetailInfo> callback,Action<TDSSDKError> errorCallback);
+        void GetUserDetailInfo(Action<TDSUserDetailInfo,TDSSDKError> callback);
 
         void GetCurrentToken(Action<TDSToken> callback);
 

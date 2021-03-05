@@ -46,6 +46,7 @@ namespace TapSDK
             Dictionary<string,object> dic = TDSCommon.Json.Deserialize(json) as Dictionary<string,object>;
             this.wrapper = TDSCommon.SafeDictionary.GetValue<string>(dic,"wrapper");
             this.getUserInfoCode = TDSCommon.SafeDictionary.GetValue<int>(dic,"getUserInfoCode");
+            Debug.Log("Parse Info:" + json);
         }
     }
 
@@ -60,6 +61,7 @@ namespace TapSDK
             Dictionary<string,object> dic = TDSCommon.Json.Deserialize(json) as Dictionary<string,object>;
             this.wrapper = TDSCommon.SafeDictionary.GetValue<string>(dic,"wrapper");
             this.getUserDetailInfoCode = TDSCommon.SafeDictionary.GetValue<int>(dic,"getUserDetailInfoCode");
+            Debug.Log("Parse Detail Info:" + json);
         }
     }
 

@@ -42,14 +42,14 @@ namespace TapSDK
             TDSSDKImpl.GetInstance().BindWithTapTap(permissions);
         }
 
-        public static void GetUserInfo(Action<TDSUserInfo> callback, Action<TDSSDKError> errorCallback)
+        public static void GetUserInfo(Action<TDSUserInfo, TDSSDKError> callback)
         {
-            TDSSDKImpl.GetInstance().GetUserInfo(callback, errorCallback);
+            TDSSDKImpl.GetInstance().GetUserInfo(callback);
         }
 
-        public static void GetUserDetailInfo(Action<TDSUserDetailInfo> callback, Action<TDSSDKError> errorCallback)
+        public static void GetUserDetailInfo(Action<TDSUserDetailInfo, TDSSDKError> callback)
         {
-            TDSSDKImpl.GetInstance().GetUserDetailInfo(callback, errorCallback);
+            TDSSDKImpl.GetInstance().GetUserDetailInfo(callback);
         }
 
         public static void GetCurrentToken(Action<TDSToken> callback)
