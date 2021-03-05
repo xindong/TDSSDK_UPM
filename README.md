@@ -10,7 +10,7 @@
 
 ### 1.添加TDSSDK
 
-使用TDSSDK必须同时依赖于TapSDK。
+使用TDSSDK必须同时依赖于TapSDK（版本对应关系查看注意事项）。
 
 * 使用Unity Pacakge Manager
 
@@ -84,3 +84,11 @@
 </plist>
 
 ```
+
+## 注意事项
+
+###  TapSDK 和 TDS 版本对应
+
+|  TapSDK版本   | TDS版本  |
+|  ----  | ----  |
+| 1.0.3  | 1.0.0 |
