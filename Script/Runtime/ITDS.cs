@@ -27,6 +27,8 @@ namespace TapSDK
 
         void GetCurrentToken(Action<TDSToken> callback);
 
+        void OpenUserCenter();
+
         void Logout();
     }
 

@@ -67,6 +67,9 @@ typedef void (^TDSUserDetailHandler)(TDSUserDetailInfo *_Nullable userDetail, NS
 /// 退出登录
 + (void)logout;
 
+/// 打开用户中心
++ (void)openUserCenter;
+
 @end
 
 NS_ASSUME_NONNULL_END
