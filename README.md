@@ -13,7 +13,8 @@
 
 ## 4. 工程导入
 
-**使用TDSSDK必须同时依赖于TapSDK，且版本号TDSSDK 1.0.0与TAPSDK 1.0.3强关联**
+**使用TDSSDK必须同时依赖于TapSDK，且版本号TDSSDK 1.0.1与TAPSDK 1.0.4强关联**  
+[版本关系](#注意事项)
 
 使用Unity Pacakge Manager
 
@@ -21,8 +22,8 @@
 
 ```
 "dependencies":{
-        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#1.0.0",
-        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.3",
+        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#1.0.1",
+        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.4",
     }
 ```
 
@@ -189,6 +190,18 @@ public static void Logout ();
 TDS.Logout();
 ```
 
+## 11.用户中心
+
+#### API
+```
+public static void OpenUserCenter ();
+```
+#### 示例代码
+
+```
+TDS.OpenUserCenter();
+```
+
 
 ## 服务端文档
 
@@ -255,7 +268,7 @@ var host = url.getHost()
 var port = 443
 var uri = url.toString().replace("http://", "").replace("https://", "").replace(":", "").substring(host.length + port.toString().length)
 var signBase = ts + "\n" + nonce + "\n" + method + "\n" + uri + "\n" + host + "\n" + port + "\n\n"
-var authorization = 
+var authorization =
 "MAC id=\"" + kid + "\",ts=\"" + ts + "\",nonce=\"" + nonce + "\",mac=\"" + CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(signBase, key)) + "\"";
 pm.globals.set("authorization",authorization);
 
@@ -448,3 +461,4 @@ function buildSignature($signatureBaseString, $signatureSecret) {
 |  TapSDK版本   | TDS版本  |
 |  ----  | ----  |
 | 1.0.3  | 1.0.0 |
+| 1.0.4  | 1.0.1 |
