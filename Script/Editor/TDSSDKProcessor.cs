@@ -50,7 +50,7 @@ namespace TDSEditor
 
                 Directory.CreateDirectory(resourcePath);
 
-                string remotePackagePath = TDSFileHelper.FilterFile(parentFolder + "/Library/PackageCache/","com.tds.sdk.ultra");
+                string remotePackagePath = TDSFileHelper.FilterFile(parentFolder + "/Library/PackageCache/","com.tds.sdk.ultra@");
 
                 string localPacckagePath = TDSFileHelper.FilterFile(parentFolder,"TDS");
 
