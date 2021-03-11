@@ -13,17 +13,17 @@
 
 ## 4. 工程导入
 
-**使用TDSSDK必须同时依赖于TapSDK，且版本号TDSSDK 1.0.1与TAPSDK 1.0.4强关联**  
+**使用TDSSDK必须同时依赖于TapSDK，且版本号TDSSDK与TAPSDK强关联**  
+
 [版本关系](#注意事项)
 
-使用Unity Pacakge Manager
-
+使用Unity Pacakge Manager  
 //在YourProjectPath/Packages/manifest.json中添加以下代码
 
 ```
 "dependencies":{
-        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#1.0.1",
-        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.4",
+        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#1.0.3",
+        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.5",
     }
 ```
 
@@ -509,3 +509,5 @@ function buildSignature($signatureBaseString, $signatureSecret) {
 |  ----  | ----  |
 | 1.0.3  | 1.0.0 |
 | 1.0.4  | 1.0.1 |
+| 1.0.5  | 1.0.3 |
+
