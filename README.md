@@ -250,7 +250,7 @@ name 用户昵称
 avatar 头像
 gender 性别
 is_guest 是否为游客
-taptap_user_id 用户的 TapTap 数字 ID 仅用于展示
+taptap_user_id 用户的 TapTap 数字 ID 仅用于展示，游客时该值为空
 ```
 
 
@@ -269,24 +269,56 @@ uri 应为
 
 2.拼接待签名字符串时，每个字段后面都要跟上换行符
 
+3.Header 上携带 Authorization，其内容的生成方式如下
+
+```
+//Shell 示例
+
+#!/usr/bin/env bash
+
+# 客户端 ID
+CLIENT_ID="KFV9Pm9ojdmWkkRJeb"
+# SDK 获取的  kid
+KID="1/BeSVXhg1CAg9xHHlFFZc2Q6iHHxXnf8ysJMnXn9bXov7UHEOP9_J9iulUTU_T-jHcQzx-aWBN2YpNOwg_qyIazFVzjoTza9Ucf9sNOT-CNHNGAJA7rEQk-JwBscdyHvVlVHAXt14jtyczjYEETGJQFjIQ3JXJSJDH7QmKNfA7l2lVUgog2Fd4xbkibXkLE_sXGGUQxxm7U0E9HOko0ssgBKbeSKSjxnCgZV6ESYxk4JCrh0OzjmM43ft2T0e4M29TLXIsP5oNGbVxT0Aha9W6ngxieddId1_7p_kZtrAXzyP1L0cUjPc8bl689sB7dRmfrI9GTClgYHi1AbgShmfLg"
+# SDK 获取的 mac_key
+MAC_KEY="nFQFLzcvAXYyUZOo"
+
+# 随机数，正式上线请替换
+NONCE="abcdef"
+# 当前时间戳
+TS=$(date +%s)
+# 请求方法
+METHOD="GET"
+# 请求地址 (带 query string)
+REQUEST_URI="/api/v1/user/info?client_id=${CLIENT_ID}"
+# 请求域名
+REQUEST_HOST="tds-account.intl.tapapis.com"
+
+MAC=$(printf "%s\n%s\n%s\n%s\n%s\n443\n\n" "${TS}" "${NONCE}" "${METHOD}" "${REQUEST_URI}" "${REQUEST_HOST}" | openssl dgst -binary -sha1 -hmac ${MAC_KEY} | base64)
+
+AUTHORIZATION=$(printf 'MAC id="%s",ts="%s",nonce="%s",mac="%s"' "${KID}" "${TS}" "${NONCE}" "${MAC}")
+
+curl -s -H"Authorization:${AUTHORIZATION}" "https://tds-account.intl.tapapis.com/api/v1/user/info?client_id=${CLIENT_ID}"
+
+```
 
 ```
 //POSTMAN Pre-request Script 示例
 var sdk = require('postman-collection')
-var kid = "jWyusMLXFBDp-JLFuE5dpJ8Joqm04N1vtL8q6B7HcPR2FmQsUaaCH2Bi8oca5h0NheXGSfAviVw8t0OYSs5aFEY0NzQWwsF8nImNrDpY6gfcnJm-njISxn5XQe-Bsyx5SF44NxoUH6j3cVntKjU4WOg04op_sl7HJFF00nDkNAk"
-var key = "66tmTc6Kh"
+var acessToken = "1/BeSVXhg1CAg9xHHlFFZc2Q6iHHxXnf8ysJMnXn9bXov7UHEOP9_J9iulUTU_T-jHcQzx-aWBN2YpNOwg_qyIazFVzjoTza9Ucf9sNOT-CNHNGAJA7rEQk-JwBscdyHvVlVHAXt14jtyczjYEETGJQFjIQ3JXJSJDH7QmKNfA7l2lVUgog2Fd4xbkibXkLE_sXGGUQxxm7U0E9HOko0ssgBKbeSKSjxnCgZV6ESYxk4JCrh0OzjmM43ft2T0e4M29TLXIsP5oNGbVxT0Aha9W6ngxieddId1_7p_kZtrAXzyP1L0cUjPc8bl689sB7dRmfrI9GTClgYHi1AbgShmfLg"
+var key = "nFQFLzcvAXYyUZOo"
 var nonce = "3X0JE"
-var ts = Date.now() / 1000 |0
+var ts = Date.now() /1000|0
 var url = pm.request.url
 var method = pm.request.method
 var host = url.getHost()
 var port = 443
-var uri = url.toString().replace("http://", "").replace("https://", "").replace(":", "").substring(host.length + port.toString().length)
+var uri = "/api/v1/user/info?client_id=KFV9Pm9ojdmWkkRJeb"
 var signBase = ts + "\n" + nonce + "\n" + method + "\n" + uri + "\n" + host + "\n" + port + "\n\n"
-var authorization =
-"MAC id=\"" + kid + "\",ts=\"" + ts + "\",nonce=\"" + nonce + "\",mac=\"" + CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(signBase, key)) + "\"";
+console.log(signBase)
+var authorization = 
+"MAC id=\"" + acessToken + "\",ts=\"" + ts + "\",nonce=\"" + nonce + "\",mac=\"" + CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(signBase, key)) + "\"";
 pm.globals.set("authorization",authorization);
-
 ```
 
 ```
@@ -385,9 +417,9 @@ string buildSignature(string & baseString,string &macKey){
 int main() {
 
     // 从客户端获取的 kid
-    char kid[] = "Lz9yb9PCDXMwYPbZqUV7Q4TZtftbzvpVB1tN2mTgiX37d1_3OKTGqzO9oYxRnsNHtxwvwXdptvRs_9CVFZUDPxA5RWDrryXL-NZAWMBT4yAWq5dTmnoq6j_p9dxmpcpp6olQjuw_QHAoDkMQvoGcZDN_cKwzP2foAScKbqYDFJM"; // kid
+    char kid[] = "1/BeSVXhg1CAg9xHHlFFZc2Q6iHHxXnf8ysJMnXn9bXov7UHEOP9_J9iulUTU_T-jHcQzx-aWBN2YpNOwg_qyIazFVzjoTza9Ucf9sNOT-CNHNGAJA7rEQk-JwBscdyHvVlVHAXt14jtyczjYEETGJQFjIQ3JXJSJDH7QmKNfA7l2lVUgog2Fd4xbkibXkLE_sXGGUQxxm7U0E9HOko0ssgBKbeSKSjxnCgZV6ESYxk4JCrh0OzjmM43ft2T0e4M29TLXIsP5oNGbVxT0Aha9W6ngxieddId1_7p_kZtrAXzyP1L0cUjPc8bl689sB7dRmfrI9GTClgYHi1AbgShmfLg"; // kid
     // 从客户端获取的 mac key
-    string macKey = "AnrGTdc4l"; // mac_key
+    string macKey = "nFQFLzcvAXYyUZOo"; // mac_key
     char nonce[] = "3X0JE"; // 随机字串，建议至少5位，必须每次随机生成
     time_t ts = time(NULL); // 当前时间戳，秒级
     string tsStr = to_string(ts);
@@ -398,9 +430,9 @@ int main() {
     signatureBaseString.append("\n");
     signatureBaseString.append("GET");
     signatureBaseString.append("\n");
-    signatureBaseString.append("/api/v1/user/info?did=1&client_id=hn5RcJei2JxCYlS0&pt=iOS");
+    signatureBaseString.append("/api/v1/user/info?client_id=KFV9Pm9ojdmWkkRJeb");
     signatureBaseString.append("\n");
-    signatureBaseString.append("tds-xdg-hk.taptap-api.com");
+    signatureBaseString.append("tds-account.intl.tapapis.com");
     signatureBaseString.append("\n");
     signatureBaseString.append("443");
     signatureBaseString.append("\n\n");
@@ -426,12 +458,12 @@ int main() {
 // PHP 语言示例
 
 // 你要请求的资源地址
-$url = 'https://tds-account.intl.tapapis.com/api/v1/user/info';
+$url = 'https://tds-account.intl.tapapis.com/api/v1/user/info?client_id=KFV9Pm9ojdmWkkRJeb';
 
 // 从客户端获取的 kid
-$kid = '664cee85e5d85fc8645186c64ea11f198370d876'; // kid
+$kid = '1/BeSVXhg1CAg9xHHlFFZc2Q6iHHxXnf8ysJMnXn9bXov7UHEOP9_J9iulUTU_T-jHcQzx-aWBN2YpNOwg_qyIazFVzjoTza9Ucf9sNOT-CNHNGAJA7rEQk-JwBscdyHvVlVHAXt14jtyczjYEETGJQFjIQ3JXJSJDH7QmKNfA7l2lVUgog2Fd4xbkibXkLE_sXGGUQxxm7U0E9HOko0ssgBKbeSKSjxnCgZV6ESYxk4JCrh0OzjmM43ft2T0e4M29TLXIsP5oNGbVxT0Aha9W6ngxieddId1_7p_kZtrAXzyP1L0cUjPc8bl689sB7dRmfrI9GTClgYHi1AbgShmfLg'; // kid
 // 从客户端获取的 mac key
-$mac_key = '744f213aad7ebe0a78fae2e8416d0d1c2323537f'; // mac_key
+$mac_key = 'nFQFLzcvAXYyUZOo'; // mac_key
 $nonce = 'aSefW'; // 随机字串，建议至少5位，必须每次随机生成
 $ts = time(); // 当前时间戳，秒级
 
@@ -439,7 +471,7 @@ $signatureBaseArray = [];
 $signatureBaseArray[] = $ts; // 当前时间戳，秒级
 $signatureBaseArray[] = $nonce; // 随机字符串
 $signatureBaseArray[] = 'GET'; // 请求方式, GET 或 POST
-$signatureBaseArray[] = '/api/v1/user/info'; // uri
+$signatureBaseArray[] = '/api/v1/user/info?client_id=KFV9Pm9ojdmWkkRJeb'; // uri
 $signatureBaseArray[] = 'tds-account.intl.tapapis.com'; // 主机名
 $signatureBaseArray[] = 443; // 端口 80 | 443
 $signatureBaseArray[] = ""; // ext
