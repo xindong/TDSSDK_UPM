@@ -30,6 +30,19 @@
 ## 5. 配置TDSSDK
 
 ### Android 配置
+#### 添加权限和Android10 配置
+```
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+//在application节点里面添加
+<application
+ 	....
+	android:requestLegacyExternalStorage="true"
+>
+```
+
+#### 跳转配置
 编辑Assets/Plugins/Android/AndroidManifest.xml文件,在Application Tag下添加以下代码。
 
 ```xml
@@ -39,6 +52,8 @@
         android:exported="false"
         android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
 ```
+
+
 ### IOS 配置
 
 #### 配置TDS-Info.plist
