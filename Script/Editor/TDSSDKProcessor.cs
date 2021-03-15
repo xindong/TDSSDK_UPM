@@ -54,7 +54,7 @@ namespace TDSEditor
 
                 string localPacckagePath = TDSFileHelper.FilterFile(parentFolder,"TDS");
 
-                string tdsResourcePath = remotePackagePath !=null? remotePackagePath + "/Plugins/IOS/Resource" : localPacckagePath + "/Plugins/IOS/Resource";
+                string tdsResourcePath = remotePackagePath !=null? remotePackagePath + "/Plugins/iOS/Resource" : localPacckagePath + "/Plugins/iOS/Resource";
 
                 Debug.Log("tdsResourcePath:" + tdsResourcePath);
 
@@ -63,8 +63,8 @@ namespace TDSEditor
                     TDSFileHelper.CopyAndReplaceDirectory(tdsResourcePath, resourcePath);
                 }
 
-                if(File.Exists(parentFolder + "/Assets/Plugins/IOS/Resource/TDS-Ultra-Info.plist")){
-                    File.Copy(parentFolder + "/Assets/Plugins/IOS/Resource/TDS-Ultra-Info.plist", resourcePath + "/TDS-Ultra-Info.plist");
+                if(File.Exists(parentFolder + "/Assets/Plugins/iOS/Resource/TDS-Ultra-Info.plist")){
+                    File.Copy(parentFolder + "/Assets/Plugins/iOS/Resource/TDS-Ultra-Info.plist", resourcePath + "/TDS-Ultra-Info.plist");
                 }
 
                 string fileName = "Unity-iPhone" + ".entitlements";
@@ -106,7 +106,7 @@ namespace TDSEditor
                 File.WriteAllText(projPath, proj.WriteToString());
 
                 Debug.Log("TDSSDK change Script compile Finish!");
-
+            
                 return;
             }
 
