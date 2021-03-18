@@ -27,3 +27,4 @@ FOUNDATION_EXPORT const unsigned char TDSSDKVersionString[];
 #import <TDSSDK/TDSSDKConstants.h>
 
 #import <TapSDK/TapSDK.h>
+#import <TDSCommon/TDSCommon.h>

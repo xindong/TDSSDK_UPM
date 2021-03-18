@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param error 如果是因为出错导致的退登，则返回错误信息
 - (void)onBind:(NSError *_Nullable)error;
 
+/// 用户打开事件回调
+/// @param string 打开的入口
+- (void)onOpen:(NSString *)string;
+
 @end
 
 NS_ASSUME_NONNULL_END

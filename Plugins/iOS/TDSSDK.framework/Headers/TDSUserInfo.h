@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *taptapUserId;
 @property (nonatomic, assign) BOOL isGuest;
 @property (nonatomic, assign) long gender;
+@property (nonatomic, assign) NSInteger mutualFans;
 
 - (NSString *)toJsonString;
 @end

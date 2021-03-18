@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TDSUserCenterEntry : NSObject
 @property (nonatomic, assign) BOOL isMomentEnabled;
+@property (nonatomic, assign) BOOL isFriendEnabled;
 @end
 
 NS_ASSUME_NONNULL_END

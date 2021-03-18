@@ -19,6 +19,11 @@ namespace TapSDK
 
         public long expireIn;
 
+        public TDSToken()
+        {
+            
+        }
+
         public TDSToken(string json)
         {
             Dictionary<string,object> dic = TDSCommon.Json.Deserialize(json) as Dictionary<string,object>;

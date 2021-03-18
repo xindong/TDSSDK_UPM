@@ -7,7 +7,9 @@
         "copy_success":"复制成功",
         "guest_name":"试玩用户",
         "guest_id":"试玩 ID: %@",
-        "network_error_click_retry":"网络异常，点击重试"
+        "network_error_click_retry":"网络异常，点击重试",
+        "entry_moment":"动态",
+        "entry_friend":"好友"
     },
     "en":{
         "logout_title":"Log out",
@@ -17,6 +19,8 @@
         "copy_success":"Copied",
         "guest_name":"Guest Player",
         "guest_id":"Guest ID: %@",
-        "network_error_click_retry":"Network error, click to retry"
+        "network_error_click_retry":"Network error, click to retry",
+        "entry_moment":"Moments",
+        "entry_friend":"Friends"
     }
 }
