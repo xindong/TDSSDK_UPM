@@ -29,6 +29,10 @@ typedef void (^TDSUserDetailHandler)(TDSUserDetailInfo *_Nullable userDetail, NS
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 
+/// 设定游戏倾向语言
+/// @param lang TDSLang 0-自动 1-简中 2-英文
++ (void)setPreferLang:(TDSLang)lang;
+
 /// 统一初始化
 /// @param config 配置项
 + (void)initWithConfig:(TDSSDKConfig *)config;
