@@ -48,8 +48,8 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("registerTDSSDKLoginResultCallback")
                 .Callback(true)
+                .OnceTime(false)
                 .CommandBuilder();
-
             EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
                  if (!CheckBridgeResult(result))
@@ -80,6 +80,7 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("registerTDSSDKUserStatusCallback")
                 .Callback(true)
+                .OnceTime(false)
                 .CommandBuilder();
             EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
@@ -142,6 +143,7 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("getUserInfo")
                 .Callback(true)
+                .OnceTime(true)
                 .CommandBuilder();
             EngineBridge.GetInstance().CallHandler(command, (result) =>
             {
@@ -168,6 +170,7 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("getUserDetailInfo")
                 .Callback(true)
+                .OnceTime(true)
                 .CommandBuilder();
 
             EngineBridge.GetInstance().CallHandler(command, (result) =>
@@ -195,6 +198,7 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("getCurrentToken")
                 .Callback(true)
+                .OnceTime(true)
                 .CommandBuilder();
             EngineBridge.GetInstance().CallHandler(command, (result) =>
              {
@@ -213,6 +217,15 @@ namespace TapSDK
                 .Service(TDSConstants.TDS_SERVICE)
                 .Method("openUserCenter")
                 .CommandBuilder());
+        }
+
+        public void PreferLang(TDSLanguage lang)
+        {
+            EngineBridge.GetInstance().CallHandler(new Command.Builder()
+                    .Service(TDSConstants.TDS_SERVICE)
+                    .Method("setPreferLang")
+                    .Args("preferLang",(int)lang)
+                    .CommandBuilder());
         }
 
         public void Logout()

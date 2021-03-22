@@ -7,7 +7,7 @@ namespace TapSDK
 {
     public interface ITDS
     {
-        void Init(string clientID,bool regionType);
+        void Init(string clientID, bool regionType);
 
         void RegisterTDSSDKLoginResultCallback(TDSLoginResultCallback callback);
 
@@ -18,16 +18,18 @@ namespace TapSDK
         void LoginbyGuest();
 
         void LoginbyApple();
-    
+
         void BindWithTapTap(string[] permissions);
 
-        void GetUserInfo(Action<TDSUserInfo,TDSSDKError> callback);
+        void GetUserInfo(Action<TDSUserInfo, TDSSDKError> callback);
 
-        void GetUserDetailInfo(Action<TDSUserDetailInfo,TDSSDKError> callback);
+        void GetUserDetailInfo(Action<TDSUserDetailInfo, TDSSDKError> callback);
 
         void GetCurrentToken(Action<TDSToken> callback);
 
         void OpenUserCenter();
+
+        void PreferLang(TDSLanguage lang);
 
         void Logout();
     }
@@ -55,6 +57,16 @@ namespace TapSDK
         public static string TDS_CLZ = "com.tapsdk.core.wrapper.TDSSDKService";
 
         public static string TDS_IMPL = "com.tapsdk.core.wrapper.TDSSDKServiceImpl";
-    }   
+
+    }
+
+    public enum TDSLanguage
+    {
+        LANG_AUTO = 0,
+
+        LANG_ZH_HANS = 1,
+
+        LANG_EN = 2
+    }
 
 }

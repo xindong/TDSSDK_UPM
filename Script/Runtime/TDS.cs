@@ -63,6 +63,12 @@ namespace TapSDK
             TDSSDKImpl.GetInstance().OpenUserCenter();
         }
 
+        public static void PreferLang(TDSLanguage language)
+        {
+            TDSSDKImpl.GetInstance().PreferLang(language);
+ 
+       }
+
         public static void Logout()
         {
             TDSSDKImpl.GetInstance().Logout();
