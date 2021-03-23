@@ -54,7 +54,7 @@ namespace TapSDK
              {
                  if (!CheckBridgeResult(result))
                  {
-                     callback.OnLoginError(new TDSSDKError(-1, "Bridge execute RegisterTDSSDKLoginResultCallback Error!"));
+                     callback.OnLoginError(new TDSSDKError(ErrorCode.ERROR_CODE_BRIDGE_EXECUTE, "Bridge execute RegisterTDSSDKLoginResultCallback Error!"));
                      return;
                  }
                  TDSLoginWrapper loginWrapper = new TDSLoginWrapper(result.content);
@@ -149,7 +149,7 @@ namespace TapSDK
             {
                 if (!CheckBridgeResult(result))
                 {
-                    callback(null, new TDSSDKError(-1, "Bridge execute GetUserInfo Error!"));
+                    callback(null, new TDSSDKError(ErrorCode.ERROR_CODE_BRIDGE_EXECUTE, "Bridge execute GetUserInfo Error!"));
                     return;
                 }
 
@@ -178,7 +178,7 @@ namespace TapSDK
                 Debug.Log("result:" + result.toJSON());
                 if (!CheckBridgeResult(result))
                 {
-                    callback(null, new TDSSDKError(-1, "Bridge execute GetDetailInfo Error!"));
+                    callback(null, new TDSSDKError(ErrorCode.ERROR_CODE_BRIDGE_EXECUTE, "Bridge execute GetDetailInfo Error!"));
                     return;
                 }
                 TDSUserDetailInfoWrapper detailInfoWrapper = new TDSUserDetailInfoWrapper(result.content);
