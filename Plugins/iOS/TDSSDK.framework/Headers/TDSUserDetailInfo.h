@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, copy, nullable) NSString *name;
 @property (nonatomic, copy, nullable) NSString *avatar;
-@property (nonatomic, copy, nullable) NSString *taptapUserId;
 @property (nonatomic, assign) BOOL isGuest;
 @property (nonatomic, assign) long gender;
 
