@@ -2,10 +2,10 @@
     "name": "com.tds.sdk.ultra",
     "displayName": "Tap SDK ultra",
     "description": "TapTap Develop Service!",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "unity": "2018.3",
     "license": "MIT",
     "dependencies": {
-        "com.tds.sdk": "https://github.com/xindong/TAPSDK_UPM.git#1.1.0"
+        "com.tds.sdk": "https://github.com/xindong/TAPSDK_UPM.git#1.1.2"
     }
 }
