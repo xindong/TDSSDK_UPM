@@ -22,8 +22,8 @@
 
 ```
 "dependencies":{
-        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#{tag}",
-        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#{tag}",
+        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#1.0.2",
+        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.4",
     }
 ```
 
@@ -499,3 +499,16 @@ function buildSignature($signatureBaseString, $signatureSecret) {
 }
 
 ```
+
+
+## 注意事项
+
+###  TapSDK 和 TDS 版本对应
+
+|  TapSDK版本   | TDS版本  |
+|  ----  | ----  |
+| 1.0.3  | 1.0.0 |
+| 1.0.4  | 1.0.1 |
+| 1.0.4  | 1.0.2 |
+| 1.1.0  | 1.1.0 |
+| 1.1.2  | 1.1.2 |
