@@ -22,8 +22,8 @@
 
 ```
 "dependencies":{
-        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#1.0.2",
-        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#1.0.4",
+        "com.tds.sdk.ultra":"https://github.com/xindong/TDSSDK_UPM.git#{tag}",
+        "com.tds.sdk":"https://github.com/xindong/TAPSDK_UPM.git#{tag}",
     }
 ```
 
@@ -54,10 +54,10 @@
 ```
 
 
-### IOS 配置
+### iOS 配置
 
 #### 配置TDS-Info.plist
-在Assets/Plugins/IOS/Resource目录下创建TDS-Info.plist复制以下代码并且替换其中的ClientId、申请权限时的文案。
+在Assets/Plugins/iOS/Resource目录下创建TDS-Info.plist复制以下代码并且替换其中的ClientId、申请权限时的文案。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -82,7 +82,7 @@
 ```
 
 #### 配置TDS-Ultra-Info.plist
-在Assets/Plugins/IOS/Resource目录下创建TDS-Ultra-Info.plist复制以下代码。
+在Assets/Plugins/iOS/Resource目录下创建TDS-Ultra-Info.plist复制以下代码。
 
 - Apple_SignIn_Enable:  true 开启Apple登陆 false 不开启
 - Game_Domain:  配置applinks
@@ -499,14 +499,3 @@ function buildSignature($signatureBaseString, $signatureSecret) {
 }
 
 ```
-
-
-## 注意事项
-
-###  TapSDK 和 TDS 版本对应
-
-|  TapSDK版本   | TDS版本  |
-|  ----  | ----  |
-| 1.0.3  | 1.0.0 |
-| 1.0.4  | 1.0.1 |
-| 1.0.4  | 1.0.2 |

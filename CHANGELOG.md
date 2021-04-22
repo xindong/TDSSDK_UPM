@@ -1,5 +1,16 @@
 # ChangeLog 
 
+## 1.1.2
+
+### BugFix
+
+- 修复 TapDB 数据上报问题
+
+
+### Dependencies
+
+- TapSDK 1.1.2
+
 ## 1.1.0
 
 - 版本需要强制TapSDK升级至1.1.0
